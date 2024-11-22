@@ -1,15 +1,22 @@
-import { Text, View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Auth from "./src/Auth/Auth";
+import Home from "./src/Home/Home";
 
-export default function Index() {
+const Stack = createStackNavigator();
+
+export default function App() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Auth"
+        component={Auth}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
