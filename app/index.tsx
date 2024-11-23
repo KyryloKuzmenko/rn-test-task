@@ -11,17 +11,17 @@ export default function App() {
       <Stack.Screen
         name="StartScreen"
         component={StartScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureEnabled: false }}
       />
       <Stack.Screen
         name="Auth"
         component={Auth}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureEnabled: true }}
       />
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureDirection: 'horizontal' }}
       />
     </Stack.Navigator>
   );

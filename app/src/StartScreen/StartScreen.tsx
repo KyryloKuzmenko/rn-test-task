@@ -20,6 +20,7 @@ export default function StartScreen() {
   const navigation = useNavigation<StackNavigationProp<RootParamList>>();
   const dispatch = useDispatch<AppDispatch>();
 
+  //check user is he login
   useEffect(() => {
     const checkAuth = async () => {
       const storedUser = await AsyncStorage.getItem('user');
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9999',
+    backgroundColor: '#d1d1d1',
   },
   loadingContainer: {
     flex: 1,
