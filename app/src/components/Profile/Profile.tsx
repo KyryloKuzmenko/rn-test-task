@@ -12,7 +12,7 @@ import axios from 'axios';
 import { Image } from 'react-native';
 
 
-const url = 'https://reqres.in/';
+const BASE_URL = 'https://reqres.in/';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default function Profile() {
 
   const fetchProfileData = async () => {
     try {
-      const response = await axios.get(`${url}api/users/1`);
+      const response = await axios.get(`${BASE_URL}api/users/1`);
       console.log(response.data)
       setProfileData(response.data.data);
       setLoading(false);
@@ -76,8 +76,8 @@ export default function Profile() {
                 style={styles.avatar}
               />
               <View>
-                <Text style={styles.name}>{userName}</Text>
-                <Text style={styles.name}>{email}</Text>
+                <Text style={styles.name}>Name: {userName}</Text>
+                <Text style={styles.name}>Email: {email}</Text>
               </View>
             </View>
           )
@@ -100,14 +100,17 @@ const styles = StyleSheet.create({
   profileContainer: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#f0f0f0',
+    padding: 10,
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    marginRight: 10,
   },
   name: {
     fontSize: 18,
