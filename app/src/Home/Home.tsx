@@ -1,48 +1,76 @@
-import { Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import { logOut, setUser } from "../redux/store";
-import { RootState } from "../redux/store";
-import { useNavigation } from "expo-router";
-import { StackNavigationProp } from "@react-navigation/stack";
-import RootParamList from "../types/types";
-import LogoutButton from "../components/LogoutButton";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
+import { useState } from 'react';
+
+import Feeds from '../components/Feeds/Feeds';
+import Profile from '../components/Profile/Profile';
+
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const navigation = useNavigation<StackNavigationProp<RootParamList>>();
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    const loadUserFromStorage = async () => {
-      const storedUser = await AsyncStorage.getItem("user");
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        dispatch(setUser(parsedUser));
-      } else {
-        navigation.replace("Auth");
-      }
-    };
-
-    loadUserFromStorage();
-  }, [dispatch, navigation]);
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("user");
-    dispatch(logOut());
-    navigation.replace("Auth");
-  };
-
-
-  if (!user) {
-    return null;
-  }
+  const [activeTab, setActiveTab] = useState<'Feeds' | 'Profile'>('Profile');
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Welcome</Text>
-      <LogoutButton onPress={() => handleLogout()}/>
-    </View>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={[styles.tab, activeTab === 'Profile' && styles.activeTab]}
+            onPress={() => setActiveTab('Profile')}
+          >
+            <Text style={styles.tabText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.tab, activeTab === 'Feeds' && styles.activeTab]}
+            onPress={() => setActiveTab('Feeds')}
+          >
+            <Text style={styles.tabText}>Feeds</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.content}>
+          {activeTab === 'Profile' && <Profile />}
+          {activeTab === 'Feeds' && <Feeds />}
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1, 
+  },
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  tab: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#007bff',
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  content: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

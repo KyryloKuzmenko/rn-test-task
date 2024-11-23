@@ -1,14 +1,16 @@
+import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-
-interface LoginButtonProps {
+interface ContinueWithEmailBtnProps {
   onPress: () => void;
 }
 
-const LogoutButton: React.FC<LoginButtonProps> = ({ onPress }) => {
+const ContinueWithEmailBtn: React.FC<ContinueWithEmailBtnProps> = ({
+  onPress,
+}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>Logout</Text>
+      <Text style={styles.buttonText}>Continue with email</Text>
     </TouchableOpacity>
   );
 };
@@ -20,6 +22,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: 'center',
+    width: 200,
+    marginTop: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   buttonText: {
     color: '#fff',
@@ -28,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LogoutButton;
+export default ContinueWithEmailBtn;

@@ -1,9 +1,13 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// User object
 interface User {
+  name: string;
   email: string;
+  password: string;
 }
 
+//authentication state
 interface AuthState {
   user: User | null;
 }
@@ -12,6 +16,7 @@ const initialState: AuthState = {
   user: null,
 };
 
+// Create a slice for handling authentication actions and state
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -27,6 +32,7 @@ const authSlice = createSlice({
 
 export const { setUser, logOut } = authSlice.actions;
 
+// Configure the store, passing the reducer for the auth slice
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,

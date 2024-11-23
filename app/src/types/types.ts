@@ -1,5 +1,6 @@
 
 type RootParamList = {
+  StartScreen: undefined;
   Auth: undefined; 
   Home: undefined; 
 };
